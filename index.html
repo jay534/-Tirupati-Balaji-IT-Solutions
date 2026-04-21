@@ -1,1 +1,206 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tirupati Balaji IT Solutions - Mobile Game Developer</title>
+    <meta name="description" content="Tirupati Balaji IT Solutions - We create fun and engaging mobile games for Android.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-orbs {
+            position: fixed; inset: 0; pointer-events: none; z-index: 0;
+        }
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
+        .orb:nth-child(1) { width: 300px; height: 300px; background: #7c3aed; top: 10%; left: 10%; animation-delay: 0s; }
+        .orb:nth-child(2) { width: 250px; height: 250px; background: #ec4899; top: 60%; right: 10%; animation-delay: 2s; }
+        .orb:nth-child(3) { width: 200px; height: 200px; background: #06b6d4; bottom: 10%; left: 30%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+
+        .container {
+            position: relative; z-index: 1;
+            max-width: 800px; margin: 0 auto; padding: 40px 20px;
+            min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        /* Logo */
+        .logo-icon {
+            font-size: 64px; margin-bottom: 16px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .company-name {
+            font-size: 32px; font-weight: 800;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-align: center; line-height: 1.2; margin-bottom: 8px;
+        }
+
+        .tagline {
+            color: #a78bfa; font-size: 16px; font-weight: 600;
+            text-align: center; margin-bottom: 40px;
+        }
+
+        /* Glass card */
+        .card {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 32px; width: 100%; margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        .card-title {
+            font-size: 18px; font-weight: 700; color: #e879f9;
+            margin-bottom: 16px;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        /* Games grid */
+        .games-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .game-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px; padding: 20px;
+            text-align: center; transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none; color: white; display: block;
+        }
+        .game-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(124,58,237,0.3);
+            border-color: rgba(167,139,250,0.4);
+        }
+        .game-icon { font-size: 48px; margin-bottom: 12px; }
+        .game-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+        .game-desc { font-size: 12px; color: #a78bfa; }
+
+        /* Play Store badge */
+        .store-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px; padding: 10px 20px; margin-top: 8px;
+            color: #a78bfa; font-size: 13px; font-weight: 600;
+            text-decoration: none; transition: background 0.3s;
+        }
+        .store-badge:hover { background: rgba(255,255,255,0.15); }
+
+        /* Contact */
+        .contact-info {
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .contact-item {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 14px; color: #d1d5db;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 40px; text-align: center;
+            color: rgba(255,255,255,0.3); font-size: 12px;
+        }
+        .footer a { color: rgba(255,255,255,0.4); text-decoration: underline; }
+
+        @media (max-width: 480px) {
+            .company-name { font-size: 24px; }
+            .games-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-orbs">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <div class="container">
+        <div class="logo-icon">🎮</div>
+        <div class="company-name">Tirupati Balaji IT Solutions</div>
+        <div class="tagline">🚀 Fun & Engaging Mobile Games</div>
+
+        <!-- Our Games -->
+        <div class="card">
+            <div class="card-title">🕹️ Our Games</div>
+            <div class="games-grid">
+                <a class="game-card" href="https://play.google.com/store/apps/developer?id=Tirupati+Balaji+IT+Solutions" target="_blank">
+                    <div class="game-icon">🍬</div>
+                    <div class="game-name">Sugar Smash World</div>
+                    <div class="game-desc">Match-3 Puzzle • 2000 Levels</div>
+                </a>
+                <a class="game-card" href="https://play.google.com/store/apps/developer?id=Tirupati+Balaji+IT+Solutions" target="_blank">
+                    <div class="game-icon">🍾</div>
+                    <div class="game-name">Bottle Flip Challenge</div>
+                    <div class="game-desc">Casual • Physics Fun</div>
+                </a>
+            </div>
+            <div style="text-align:center; margin-top: 20px;">
+                <a class="store-badge" href="https://play.google.com/store/apps/developer?id=Tirupati+Balaji+IT+Solutions" target="_blank">
+                    ▶ View All on Google Play
+                </a>
+            </div>
+        </div>
+
+        <!-- About -->
+        <div class="card">
+            <div class="card-title">👋 About Us</div>
+            <p style="color: #d1d5db; font-size: 14px; line-height: 1.7;">
+                We are a passionate indie game studio based in India, creating fun and addictive mobile games. 
+                Our mission is to bring joy to millions of players worldwide with creative, high-quality gaming experiences.
+            </p>
+        </div>
+
+        <!-- Contact -->
+        <div class="card">
+            <div class="card-title">📧 Contact</div>
+            <div class="contact-info">
+                <div class="contact-item">📧 jayeshchorat39@gmail.com</div>
+                <div class="contact-item">🌐 Tirupati Balaji IT Solutions, India</div>
+            </div>
+        </div>
+
+        <!-- Privacy & Legal -->
+        <div class="card" style="text-align: center;">
+            <div class="card-title" style="justify-content: center;">📜 Legal</div>
+            <p style="color: #9ca3af; font-size: 13px; line-height: 1.8;">
+                We respect your privacy. Our games do not collect personal data.<br>
+                Ads are served by Google AdMob.<br>
+                For any concerns, please contact us via email.
+            </p>
+        </div>
+
+        <div class="footer">
+            © 2026 Tirupati Balaji IT Solutions. All rights reserved.<br>
+            <a href="app-ads.txt">app-ads.txt</a>
+        </div>
+    </div>
+</body>
+</html>
