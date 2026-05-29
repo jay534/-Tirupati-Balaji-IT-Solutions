@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lightning Wi-Fi Speed - FlickShare Features</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --primary-dark: #00b8d4;
+            --accent: #6c63ff;
+            --accent-glow: rgba(108, 99, 255, 0.4);
+            --bg: #090d16;
+            --card-bg: rgba(17, 24, 39, 0.55);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --btn-gradient: linear-gradient(135deg, #00e5ff 0%, #6c63ff 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .bg-orbs {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1000px;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.15;
+            animation: float 8s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            top: -100px;
+            right: -100px;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            bottom: 100px;
+            left: -100px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(30px) scale(1.05); }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
+
+        .back-btn:hover {
+            color: #ffffff;
+            background: var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.25);
+            transform: translateX(-3px);
+        }
+
+        /* Hero */
+        .feature-hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 229, 255, 0.12);
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            padding: 6px 16px;
+            border-radius: 30px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Speed Chart Showcase */
+        .chart-showcase {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 40px 30px;
+            margin-bottom: 60px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .chart-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .bar-container {
+            margin-bottom: 24px;
+        }
+
+        .bar-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .bar-bg {
+            background: rgba(255, 255, 255, 0.05);
+            height: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 1.5s ease-in-out;
+            width: 0; /* Animated via load */
+        }
+
+        .fill-bluetooth {
+            background: #ef4444;
+            width: 2%;
+        }
+
+        .fill-cloud {
+            background: var(--accent);
+            width: 30%;
+        }
+
+        .fill-flickshare {
+            background: var(--btn-gradient);
+            width: 100%;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+        }
+
+        /* Details Grid */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2.4rem;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            padding: 30px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-4px);
+        }
+
+        .card h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .cta-box {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.05) 0%, rgba(108, 99, 255, 0.05) 100%);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            border-radius: 24px;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--btn-gradient);
+            color: #090d16;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+        }
+    </style>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.getElementById('bar-bt').style.width = '2%';
+                document.getElementById('bar-cloud').style.width = '30%';
+                document.getElementById('bar-fs').style.width = '100%';
+            }, 300);
+        });
+    </script>
+</head>
+<body>
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <div class="container">
+        <nav>
+            <a href="../index.html" class="back-btn">⬅️ Back to Home</a>
+        </nav>
+
+        <main class="feature-hero">
+            <div class="badge">🚀 Extreme Wi-Fi Speed</div>
+            <h1>Lightning-Fast Local Speed</h1>
+            <p class="subtitle">इंटरनेट आणि केबल्सना म्हणा कायमचा गुडबाय! डायरेक्ट P2P लोकल सॉकेट्सच्या साहाय्याने ब्लूटूथ पेक्षा २०० पटीने वेगाने तुमच्या सर्व फाईल्स सुरक्षित पाठवा.</p>
+        </main>
+
+        <section class="chart-showcase">
+            <div class="chart-title">स्पीड तुलना (Speed Comparison Chart)</div>
+            
+            <!-- Bluetooth -->
+            <div class="bar-container">
+                <div class="bar-labels">
+                    <span style="color: #ef4444;">📟 Bluetooth 4.2 / 5.0</span>
+                    <span>0.15 MB/s (अतिशय संथ)</span>
+                </div>
+                <div class="bar-bg">
+                    <div id="bar-bt" class="bar-fill fill-bluetooth"></div>
+                </div>
+            </div>
+
+            <!-- Cloud storage -->
+            <div class="bar-container">
+                <div class="bar-labels">
+                    <span style="color: #a78bfa;">☁️ Cloud Upload / Google Drive</span>
+                    <span>3.5 MB/s (इंटरनेट स्पीडवर मर्यादित)</span>
+                </div>
+                <div class="bar-bg">
+                    <div id="bar-cloud" class="bar-fill fill-cloud"></div>
+                </div>
+            </div>
+
+            <!-- FlickShare -->
+            <div class="bar-container">
+                <div class="bar-labels">
+                    <span style="color: var(--primary); font-weight: bold;">⚡ FlickShare P2P Direct</span>
+                    <span style="color: var(--primary); font-weight: bold;">40.0+ MB/s (मर्यादेविना वेगवान!)</span>
+                </div>
+                <div class="bar-bg">
+                    <div id="bar-fs" class="bar-fill fill-flickshare"></div>
+                </div>
+            </div>
+            <p style="color: var(--text-muted); font-size: 13px; text-align: center; margin-top: 20px;">*तुमच्या डिव्हाइसच्या वाय-फाय चिप आणि हार्डवेअरनुसार प्रत्यक्ष स्पीड अधिक जास्त असू शकतो.</p>
+        </section>
+
+        <section class="details-grid">
+            <div class="card">
+                <h2>🚫 शून्य डेटा वापर (Zero Data Usage)</h2>
+                <p>या ट्रान्सफरसाठी तुमचे इंटरनेट किंवा डेटा पॅक अजिबात वापरला जात नाही. तुमच्या लॅपटॉप आणि मोबाईलचे वाय-फाय थेट एकमेकांशी जोडले जाऊन स्थानिक नेटवर्कवर ट्रान्सफर पूर्ण होते.</p>
+            </div>
+            <div class="card">
+                <h2>📈 ब्लूटूथपेक्षा २०० पटीने वेगवान</h2>
+                <p>ब्लूटूथ वापरून मोठे व्हिडिओ पाठवण्यासाठी तासनतास लागतात. FlickShare च्या वाय-फाय डायरेक्ट चॅनेलमुळे १ जीबीचा मोठा चित्रपट अवघ्या २५ ते ३० सेकंदात सहज ट्रान्सफर होतो.</p>
+            </div>
+            <div class="card">
+                <h2>🔌 केबल्स आणि ड्रायव्हर्सची गरज नाही</h2>
+                <p>कॉम्प्युटर आणि मोबाईल जोडण्यासाठी लॅपटॉपला डेटा केबल लावण्याची किंवा ड्रायव्हर्स इन्स्टॉल करण्याची कोणतीही डोकेदुखी उरत नाही.</p>
+            </div>
+            <div class="card">
+                <h2>🤹 बॅकग्राउंड ट्रान्सफर (Background Operations)</h2>
+                <p>मोठ्या फाईल्स पाठवताना तुम्ही ॲप बंद करून मोबाईलवर दुसरे काम करू शकता. बॅकग्राउंडमध्ये कोणतीही फाईल न अडकता ट्रान्सफर पूर्ण होते.</p>
+            </div>
+        </section>
+
+        <div class="cta-box">
+            <h2>FlickShare सह आताच सुरवात करा</h2>
+            <p>विंडोज आणि अँड्रॉइडसाठी आमचे ॲप अगदी मोफत डाऊनलोड करा!</p>
+            <a href="../index.html#download" class="cta-btn">🚀 ॲप मोफत डाऊनलोड करा</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac & iOS Web Bridge - FlickShare Features</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --primary-dark: #00b8d4;
+            --accent: #6c63ff;
+            --accent-glow: rgba(108, 99, 255, 0.4);
+            --bg: #090d16;
+            --card-bg: rgba(17, 24, 39, 0.55);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --btn-gradient: linear-gradient(135deg, #00e5ff 0%, #6c63ff 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .bg-orbs {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1000px;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.15;
+            animation: float 8s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent);
+            top: -100px;
+            right: -100px;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            bottom: 100px;
+            left: -100px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(30px) scale(1.05); }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
+
+        .back-btn:hover {
+            color: #ffffff;
+            background: var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.25);
+            transform: translateX(-3px);
+        }
+
+        /* Hero */
+        .feature-hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 229, 255, 0.12);
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            padding: 6px 16px;
+            border-radius: 30px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Interactive Showcase */
+        .showcase-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 50px 30px;
+            margin-bottom: 60px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .device-card {
+            background: rgba(9, 13, 22, 0.7);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px 20px;
+            width: 260px;
+            text-align: center;
+            position: relative;
+        }
+
+        .device-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .qr-placeholder {
+            width: 140px;
+            height: 140px;
+            background: #ffffff;
+            margin: 0 auto 16px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .qr-placeholder svg {
+            width: 120px;
+            height: 120px;
+        }
+
+        .phone-browser {
+            background: #1e293b;
+            border-radius: 14px;
+            padding: 16px;
+            margin-top: 10px;
+        }
+
+        .browser-header {
+            background: #0f172a;
+            padding: 6px;
+            border-radius: 6px;
+            font-size: 11px;
+            color: var(--primary);
+            word-break: break-all;
+            margin-bottom: 10px;
+        }
+
+        .dl-progress {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .dl-progress-fill {
+            height: 100%;
+            background: var(--btn-gradient);
+            width: 75%;
+            animation: pulseProgress 2s infinite alternate;
+        }
+
+        @keyframes pulseProgress {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        .conn-arrow {
+            font-size: 40px;
+            color: var(--primary);
+            animation: bounceLeftRight 2s infinite alternate;
+        }
+
+        @keyframes bounceLeftRight {
+            0% { transform: translateX(-10px); }
+            100% { transform: translateX(10px); }
+        }
+
+        @media (max-width: 768px) {
+            .showcase-box {
+                flex-direction: column;
+            }
+            .conn-arrow {
+                transform: rotate(90deg);
+                animation: bounceUpDown 2s infinite alternate;
+            }
+        }
+
+        @keyframes bounceUpDown {
+            0% { transform: rotate(90deg) translateX(-10px); }
+            100% { transform: rotate(90deg) translateX(10px); }
+        }
+
+        /* Details Grid */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2.4rem;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            padding: 30px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-4px);
+        }
+
+        .card h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .cta-box {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.05) 0%, rgba(108, 99, 255, 0.05) 100%);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            border-radius: 24px;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--btn-gradient);
+            color: #090d16;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <div class="container">
+        <nav>
+            <a href="../index.html" class="back-btn">⬅️ Back to Home</a>
+        </nav>
+
+        <main class="feature-hero">
+            <div class="badge">🍎 Zero Client Web Bridge</div>
+            <h1>Apple Mac, iPhone & Web Bridge</h1>
+            <p class="subtitle">रिसीव्हरकडे ॲप नसेल? काहीच काळजी नाही! FlickShare चा वापर करून रिसीव्हरच्या कोणत्याही ब्राउझरमध्ये (Safari, Chrome) थेट फाईल्स पाठवा, फक्त एक साधा QR कोड स्कॅन करून.</p>
+        </main>
+
+        <section class="showcase-box">
+            <!-- Sender Laptop -->
+            <div class="device-card">
+                <h3>💻 FlickShare Sender</h3>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Local Web Server Enabled</p>
+                <div class="qr-placeholder">
+                    <!-- Simple Mock QR SVG -->
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="5" y="5" width="20" height="20" fill="#090d16"/>
+                        <rect x="10" y="10" width="10" height="10" fill="#ffffff"/>
+                        <rect x="75" y="5" width="20" height="20" fill="#090d16"/>
+                        <rect x="80" y="10" width="10" height="10" fill="#ffffff"/>
+                        <rect x="5" y="75" width="20" height="20" fill="#090d16"/>
+                        <rect x="10" y="80" width="10" height="10" fill="#ffffff"/>
+                        <rect x="35" y="35" width="30" height="30" fill="#090d16"/>
+                        <rect x="40" y="40" width="20" height="20" fill="#ffffff"/>
+                        <!-- Random patterns -->
+                        <rect x="5" y="35" width="10" height="10" fill="#090d16"/>
+                        <rect x="20" y="50" width="10" height="15" fill="#090d16"/>
+                        <rect x="75" y="35" width="15" height="10" fill="#090d16"/>
+                        <rect x="75" y="55" width="10" height="10" fill="#090d16"/>
+                        <rect x="35" y="75" width="15" height="15" fill="#090d16"/>
+                    </svg>
+                </div>
+                <p style="font-size: 12px; color: var(--primary);">Scan code with iPhone or Mac</p>
+            </div>
+
+            <div class="conn-arrow">⚡</div>
+
+            <!-- Receiver Phone -->
+            <div class="device-card">
+                <h3>📱 iOS Safari / Chrome</h3>
+                <div class="phone-browser">
+                    <div class="browser-header">http://192.168.1.10:8080</div>
+                    <p style="font-size: 12px; text-align: left; color: #ffffff;">Downloading: <b>Photo_Collection.zip</b></p>
+                    <div class="dl-progress">
+                        <div class="dl-progress-fill"></div>
+                    </div>
+                    <p style="font-size: 11px; text-align: right; color: var(--primary);">75% Completed</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="details-grid">
+            <div class="card">
+                <h2>🍏 Apple डिव्हाइसेससाठी वरदान (Perfect for macOS & iOS)</h2>
+                <p>अनेकदा विंडोज कॉम्प्युटर आणि आयफोन किंवा मॅकबुक यांच्यात फाईल्स शेअर करणे खूप कठीण जाते. FlickShare मधील 'Web Bridge' मुळे आयफोनवर कोणतेही ॲप न घेता सफारी (Safari) ब्राउझर उघडून फाईल्स थेट घेता येतात.</p>
+            </div>
+            <div class="card">
+                <h2>📲 साधे QR कोड स्कॅनिंग (Easy Scan Connection)</h2>
+                <p>फक्त तुमचा मोबाईलचा कॅमेरा उघडा, FlickShare कॉम्प्युटर स्क्रीनवरील QR कोड स्कॅन करा आणि फाईल घेण्यास सुरुवात करा. कोणतीही किचकट आयपी ॲड्रेस टाईप करण्याची गरज नाही.</p>
+            </div>
+            <div class="card">
+                <h2>🌐 सर्व ब्राउझर्सना सपोर्ट (Universal Browser Support)</h2>
+                <p>हे तंत्रज्ञान सर्व प्रमुख ब्राउझर्सवर चालते, जसे की Safari, Google Chrome, Mozilla Firefox, Microsoft Edge आणि Opera.</p>
+            </div>
+            <div class="card">
+                <h2>🔐 संपूर्ण स्थानिक सुरक्षा (Local Sandbox Security)</h2>
+                <p>वेब ब्रिज दरम्यान तुमच्या लॅपटॉपवर एक छोटा आणि सुरक्षित स्थानिक सर्व्हर सुरू केला जातो. त्यामुळे हा डेटा पूर्णपणे तुमच्याच घरात फिरतो, तो इंटरनेटवर कुठेही प्रसारित होत नाही.</p>
+            </div>
+        </section>
+
+        <div class="cta-box">
+            <h2>FlickShare सह आताच सुरवात करा</h2>
+            <p>विंडोज आणि अँड्रॉइडसाठी आमचे ॲप अगदी मोफत डाऊनलोड करा!</p>
+            <a href="../index.html#download" class="cta-btn">🚀 ॲप मोफत डाऊनलोड करा</a>
+        </div>
+    </div>
+</body>
+</html>

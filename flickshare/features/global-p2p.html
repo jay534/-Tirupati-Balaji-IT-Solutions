@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global P2P Sharing - FlickShare Features</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --primary-dark: #00b8d4;
+            --accent: #6c63ff;
+            --accent-glow: rgba(108, 99, 255, 0.4);
+            --bg: #090d16;
+            --card-bg: rgba(17, 24, 39, 0.55);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --btn-gradient: linear-gradient(135deg, #00e5ff 0%, #6c63ff 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .bg-orbs {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1000px;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.15;
+            animation: float 8s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent);
+            top: -100px;
+            right: -100px;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            bottom: 100px;
+            left: -100px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(30px) scale(1.05); }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
+
+        .back-btn:hover {
+            color: #ffffff;
+            background: var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.25);
+            transform: translateX(-3px);
+        }
+
+        /* Hero */
+        .feature-hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(108, 99, 255, 0.12);
+            border: 1px solid rgba(108, 99, 255, 0.25);
+            padding: 6px 16px;
+            border-radius: 30px;
+            color: #a78bfa;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Animation Box */
+        .anim-showcase {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 50px 30px;
+            margin-bottom: 60px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Earth & Transfer Map Animation */
+        .map-container {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .globe-node {
+            width: 120px;
+            height: 120px;
+            background: rgba(9, 13, 22, 0.8);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
+            z-index: 2;
+            position: relative;
+        }
+
+        .globe-node-2 {
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(108, 99, 255, 0.25);
+        }
+
+        .node-icon {
+            font-size: 32px;
+            margin-bottom: 6px;
+            animation: bounce 2s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        .node-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .transfer-path {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            position: relative;
+            margin: 0 -20px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .signal-dot {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: var(--btn-gradient);
+            border-radius: 50%;
+            top: -10px;
+            left: 0;
+            animation: travel 3s linear infinite;
+            box-shadow: 0 0 15px var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #090d16;
+        }
+
+        @keyframes travel {
+            0% { left: 0%; transform: scale(0.8); }
+            50% { transform: scale(1.2); }
+            100% { left: 100%; transform: scale(0.8); }
+        }
+
+        /* Earth background grid effect */
+        .grid-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .speed-readout {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+            margin-top: 10px;
+            animation: pulseText 2s infinite alternate;
+        }
+
+        @keyframes pulseText {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Details Grid */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2.4rem;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            padding: 30px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-4px);
+        }
+
+        .card h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .cta-box {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.05) 0%, rgba(108, 99, 255, 0.05) 100%);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            border-radius: 24px;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--btn-gradient);
+            color: #090d16;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <div class="container">
+        <nav>
+            <a href="../index.html" class="back-btn">⬅️ Back to Home</a>
+        </nav>
+
+        <main class="feature-hero">
+            <div class="badge">✈️ Global P2P Networking</div>
+            <h1>Global Transfer. Send Anywhere.</h1>
+            <p class="subtitle">तुमच्या घरून किंवा ऑफिसच्या खुर्चीवरून बसून जगाच्या कोणत्याही कोपऱ्यात एका सेकंदात डेटा ट्रान्सफर करा! Direct Serverless WebRTC तंत्रज्ञानाचा वापर करून सुरक्षित आणि सुरक्षित देवाणघेवाण.</p>
+        </main>
+
+        <section class="anim-showcase">
+            <div class="grid-bg"></div>
+            <div class="map-container">
+                <div class="globe-node">
+                    <div class="node-icon">🇮🇳</div>
+                    <div class="node-name">Mumbai, India</div>
+                </div>
+                <div class="transfer-path">
+                    <div class="signal-dot">📁</div>
+                </div>
+                <div class="globe-node globe-node-2">
+                    <div class="node-icon">🇺🇸</div>
+                    <div class="node-name">New York, USA</div>
+                </div>
+            </div>
+            <div class="speed-readout">WebRTC Handshake Completed • Secure P2P Active</div>
+            <p style="color: var(--text-muted); margin-top: 15px; font-size: 14px; text-align: center; max-width: 600px;">सर्व फाईल्स थेट एका डिव्हाइसवरून दुसऱ्या डिव्हाइसवर जातात, क्लाऊड सर्व्हरवर कोणतीही माहिती जमा होत नाही.</p>
+        </section>
+
+        <section class="details-grid">
+            <div class="card">
+                <h2>🌍 जगाच्या पाठीवर कुठेही (World Remote Transfer)</h2>
+                <p>जरी तुमचे डिव्हाइसेस एकाच वाय-फाय नेटवर्कवर नसले, तरी तुम्ही एकमेकांना 4-अंकी (4-Digit) Pairing Code द्वारे जोडून थेट डेटा पाठवू शकता. मग तो शेजारी बसलेला मित्र असो वा दुसऱ्या देशातील कोणीही!</p>
+            </div>
+            <div class="card">
+                <h2>🛡️ End-to-End Encryption (E2EE)</h2>
+                <p>WebRTC P2P Data Channels च्या माध्यमातून प्रत्येक फाईल ट्रान्सफर होताना सुरक्षितरीत्या एन्क्रिप्ट केली जाते. डेटा मध्येच कोणीही चोरू किंवा पाहू शकत नाही. तुमची फाईल फक्त तुमच्या रिसीव्हरलाच उघडते.</p>
+            </div>
+            <div class="card">
+                <h2>⚡ क्लाउडशिवाय वेग (No Cloud Delays)</h2>
+                <p>पारंपारिक ॲप्स आधी तुमची फाईल त्यांच्या क्लाउडवर अपलोड करतात आणि नंतर रिसीव्हर ती डाऊनलोड करतो. FlickShare मध्ये अपलोडिंग-डाऊनलोडिंग सोबतच घडते (Direct Stream), ज्यामुळे वेळ अर्धा वाचतो!</p>
+            </div>
+            <div class="card">
+                <h2>📦 अमर्यादित साईझ (Unlimited File Sizes)</h2>
+                <p>क्लाउड स्टोरेज नसल्यामुळे फाईल आकारावर कोणतीही मर्यादा नाही. तुम्ही 1 GB, 10 GB किंवा थेट 100 GB चा मोठा व्हिडिओ फाईल देखील एका क्लिकवर पाठवू शकता.</p>
+            </div>
+        </section>
+
+        <div class="cta-box">
+            <h2>FlickShare सह आताच सुरवात करा</h2>
+            <p>विंडोज आणि अँड्रॉइडसाठी आमचे ॲप अगदी मोफत डाऊनलोड करा!</p>
+            <a href="../index.html#download" class="cta-btn">🚀 ॲप मोफत डाऊनलोड करा</a>
+        </div>
+    </div>
+</body>
+</html>
