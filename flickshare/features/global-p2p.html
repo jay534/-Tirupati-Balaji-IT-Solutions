@@ -332,6 +332,71 @@
             border-radius: 24px;
         }
 
+        /* Visual Step-by-Step section */
+        .step-sec {
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .step-sec h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin-bottom: 50px;
+        }
+
+        .step-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 30px;
+            text-align: left;
+        }
+
+        .step-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 35px 24px 24px;
+            border-radius: 20px;
+            position: relative;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .step-num {
+            position: absolute;
+            top: -18px;
+            left: 24px;
+            width: 36px;
+            height: 36px;
+            background: var(--btn-gradient);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #090d16;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+            font-size: 16px;
+        }
+
+        .step-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin: 10px 0 12px;
+        }
+
+        .step-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
         .cta-btn {
             display: inline-flex;
             align-items: center;
@@ -405,6 +470,36 @@
             <div class="card">
                 <h2>📦 Unlimited File Sizes</h2>
                 <p>With no cloud server storage limits, there are absolutely no file size restrictions. Easily send a 1 GB video, a 10 GB archive, or a 100 GB folder in a single click.</p>
+            </div>
+        </section>
+
+        <section class="step-sec">
+            <h2>How to Use Global P2P Remote Sharing</h2>
+            <div class="step-grid">
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h3>Open Remote Mode</h3>
+                    <p>Launch FlickShare on your Windows PC or Android mobile, and select the 'Remote Sharing' tab.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h3>Generate Handshake Pin</h3>
+                    <p>Click 'Generate PIN' to create a unique 4-digit temporary passcode for your session connection.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h3>Share Pin Code</h3>
+                    <p>Send this 4-digit code to the recipient. They will enter it on their FlickShare app to pair securely.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="step-card">
+                    <div class="step-num">4</div>
+                    <h3>Stream Encrypted</h3>
+                    <p>Select your folders, pictures, or videos and click send. They stream encrypted directly to their device!</p>
+                </div>
             </div>
         </section>
 
