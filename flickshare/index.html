@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlickShare - Fast, Secure, Cross-Platform P2P File Transfer</title>
+    <meta name="description" content="FlickShare is a lightning-fast cross-platform file transfer tool to share photos, videos, and large files between Android, Windows, Mac, and iPhone.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00e5ff;
+            --primary-dark: #00b8d4;
+            --accent: #6c63ff;
+            --accent-glow: rgba(108, 99, 255, 0.4);
+            --bg: #090d16;
+            --card-bg: rgba(17, 24, 39, 0.55);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --btn-gradient: linear-gradient(135deg, #00e5ff 0%, #6c63ff 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Glowing Background Orbs */
+        .bg-orbs {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1000px;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            animation: float 10s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            top: -100px;
+            right: 10%;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent);
+            top: 200px;
+            left: -100px;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(40px) scale(1.1); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--btn-gradient);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+            animation: pulse 3s infinite alternate;
+        }
+
+        .brand-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #ffffff !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #090d16 !important;
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.25);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 0 100px;
+            gap: 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 30px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--btn-gradient);
+            color: #090d16;
+            box-shadow: 0 8px 25px rgba(0, 229, 255, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(108, 99, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            color: #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* 3D Glass Device Container Mockup */
+        .glass-mockup {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            animation: floatUpDown 6s ease-in-out infinite;
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .mockup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .mockup-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mockup-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .mockup-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .mockup-content {
+            background: rgba(9, 13, 22, 0.8);
+            border-radius: 20px;
+            padding: 40px 20px;
+            border: 1px solid var(--card-border);
+            position: relative;
+        }
+
+        .transfer-anim {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 24px;
+        }
+
+        .device-icon {
+            font-size: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+        }
+
+        .lightning-flow {
+            font-size: 32px;
+            color: var(--primary);
+            animation: pulseFlow 1.5s infinite;
+        }
+
+        @keyframes pulseFlow {
+            0% { transform: scale(0.9); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.5; }
+        }
+
+        .transfer-speed {
+            font-family: 'Outfit', sans-serif;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .transfer-status {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .section-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            padding: 40px 30px;
+            border-radius: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(0, 229, 255, 0.05);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            color: var(--primary);
+            background: rgba(0, 229, 255, 0.08);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+
+        .feature-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Download Section */
+        .download-sec {
+            padding: 100px 0;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(108, 99, 255, 0.08) 0%, rgba(9, 13, 22, 0) 70%);
+            border-top: 1px solid var(--card-border);
+        }
+
+        .download-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 32px;
+            padding: 60px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            backdrop-filter: blur(20px);
+        }
+
+        .download-box h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .download-box p {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .dl-card {
+            background: rgba(9, 13, 22, 0.6);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dl-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            background: rgba(9, 13, 22, 0.9);
+            box-shadow: 0 10px 20px rgba(0, 229, 255, 0.1);
+        }
+
+        .dl-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+
+        .dl-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .dl-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .dl-badge {
+            background: var(--primary);
+            color: #090d16;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .dl-badge-sec {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: #ffffff;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--card-border);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        /* Media Queries */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 60px 0;
+            }
+            .hero-content {
+                max-width: 100%;
+            }
+            h1 {
+                font-size: 3rem;
+            }
+            .hero-btns {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            .download-box {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Ambient Orbs -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <a href="#" class="brand">
+                <div class="logo-icon">⚡</div>
+                <div class="brand-name">FlickShare</div>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#download" class="nav-btn">Download Free</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">⚡ Ultra-Fast P2P Sharing</div>
+                <h1>Flick Files Instantly. No Cables Needed.</h1>
+                <p class="hero-desc">Share files, videos, music, and documents seamlessly at lightning speed. FlickShare bridges Android devices, Windows Laptops, and Apple systems without cloud uploads or slow Bluetooth.</p>
+                <div class="hero-btns">
+                    <a href="#download" class="btn btn-primary">⚡ Download Free App</a>
+                    <a href="#features" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="glass-mockup">
+                    <div class="mockup-header">
+                        <div class="mockup-dots">
+                            <div class="mockup-dot"></div>
+                            <div class="mockup-dot"></div>
+                            <div class="mockup-dot"></div>
+                        </div>
+                        <div class="mockup-title">FlickShare Active Link</div>
+                    </div>
+                    <div class="mockup-content">
+                        <div class="transfer-anim">
+                            <div class="device-icon">📱</div>
+                            <div class="lightning-flow">⚡</div>
+                            <div class="device-icon">💻</div>
+                        </div>
+                        <div class="transfer-speed">24.5 MB/s</div>
+                        <div class="transfer-status">Transferring "Large_Video.mp4" (84% Done)</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="section-header">
+                <h2>Why FlickShare is Better</h2>
+                <p>Simple, serverless, and secure file sharing that requires absolutely no cloud storage, accounts, or configurations.</p>
+            </div>
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Lightning Wi-Fi Speed</h3>
+                    <p>Uses local high-speed P2P Wi-Fi. Up to 200x faster than Bluetooth with zero data usage or internet fees.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>macOS & iOS Web Bridge</h3>
+                    <p>Flick files directly to a Mac or iPhone browser instantly by scanning a simple pairing QR code. Zero apps to install on receiver side!</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon">🔑</div>
+                    <h3>Secure Remote WebRTC</h3>
+                    <p>Connect securely across networks with instant 4-digit pairing codes. Files flow peer-to-peer and are never uploaded to any server.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Absolute Privacy</h3>
+                    <p>100% serverless. We do not collect personal data, track coordinates, or store files. Your information stays solely on your local devices.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section id="download" class="download-sec">
+            <div class="download-box">
+                <h2>Get FlickShare Today</h2>
+                <p>Choose your platform and download the official FlickShare package completely free of charge. No payment required!</p>
+                <div class="download-grid">
+                    <!-- Windows -->
+                    <a href="https://github.com/jay534/jay534.github.io/releases/download/v1.0.0/flickshare_windows_release.zip" class="dl-card">
+                        <div class="dl-icon">💻</div>
+                        <div class="dl-title">Windows PC</div>
+                        <div class="dl-desc">Windows 10 / 11 (.ZIP package)</div>
+                        <div class="dl-badge">💾 Download .ZIP</div>
+                    </a>
+                    <!-- Android Play Store -->
+                    <a href="https://play.google.com/store/apps/details?id=com.flickshare.flickshare" target="_blank" class="dl-card">
+                        <div class="dl-icon">▶️</div>
+                        <div class="dl-title">Google Play Store</div>
+                        <div class="dl-desc">Install on Android Device</div>
+                        <div class="dl-badge dl-badge-sec">⭐ Install Now</div>
+                    </a>
+                    <!-- Android Direct APK -->
+                    <a href="https://github.com/jay534/jay534.github.io/releases/download/v1.0.0/flickshare_android_release.apk" class="dl-card">
+                        <div class="dl-icon">📱</div>
+                        <div class="dl-title">Android APK</div>
+                        <div class="dl-desc">Direct installable (.APK format)</div>
+                        <div class="dl-badge">📦 Download APK</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 FlickShare. Developed securely by Tirupati Balaji IT Solutions.</p>
+            <p style="margin-top: 10px;">
+                <a href="privacy.html">🔒 Privacy Policy</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
