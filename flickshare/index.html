@@ -563,59 +563,259 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--card-border);
             color: #ffffff;
-        /* SEO Guide Section */
+        /* High-Premium SEO Guide Section Redesign */
         .guide-sec {
             padding: 100px 0;
             border-top: 1px solid var(--card-border);
         }
 
         .guide-container {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 32px;
-            padding: 60px 40px;
-            backdrop-filter: blur(20px);
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
-        .guide-article {
+        .guide-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .guide-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.6rem;
+            color: #ffffff;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .guide-header p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Advantage Grid Cards */
+        .advantage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+
+        .advantage-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 40px 30px;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
             text-align: left;
         }
 
-        .guide-article h2 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2.2rem;
-            color: #ffffff;
-            margin-bottom: 20px;
-            border-bottom: 2px solid rgba(0, 229, 255, 0.15);
-            padding-bottom: 10px;
+        .advantage-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.03) 0%, rgba(108, 99, 255, 0.03) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .guide-article h3 {
+        .advantage-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.15);
+        }
+
+        .advantage-card:hover::before {
+            opacity: 1;
+        }
+
+        .adv-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .advantage-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .advantage-card p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Comparison Section */
+        .comparison-container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 32px;
+            padding: 50px 40px;
+            backdrop-filter: blur(20px);
+            margin-bottom: 80px;
+        }
+
+        .comp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .comp-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comp-column {
+            text-align: left;
+        }
+
+        .comp-column h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            color: #ffffff;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comp-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .comp-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: var(--text-muted);
+            font-size: 1.02rem;
+            line-height: 1.6;
+        }
+
+        .comp-item strong {
+            color: #ffffff;
+        }
+
+        .comp-icon-check {
+            color: #10b981;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .comp-icon-cross {
+            color: #ef4444;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Dynamic Transfer Methods Grid */
+        .methods-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .methods-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        @media (max-width: 992px) {
+            .methods-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .method-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 40px 30px;
+            backdrop-filter: blur(20px);
+            text-align: left;
+        }
+
+        .method-box h3 {
             font-family: 'Outfit', sans-serif;
             font-size: 1.5rem;
             color: var(--primary);
-            margin: 30px 0 15px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .guide-article p {
+        .method-subtitle {
             color: var(--text-muted);
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 20px;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
         }
 
-        .guide-article ol, .guide-article ul {
-            margin-left: 20px;
-            margin-bottom: 20px;
+        .method-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            position: relative;
+        }
+
+        .method-step-card {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .method-step-num {
+            width: 32px;
+            height: 32px;
+            background: var(--btn-gradient);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #090d16;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+        }
+
+        .method-step-content h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .method-step-content p {
             color: var(--text-muted);
-            font-size: 1.05rem;
-            line-height: 1.8;
-        }
-
-        .guide-article li {
-            margin-bottom: 10px;
+            font-size: 0.92rem;
+            line-height: 1.5;
         }
 
         /* FAQ Q&A Generative AI Section */
@@ -815,50 +1015,167 @@
             </div>
         </section>
 
-        <!-- SEO Guide & Knowledge Base Article -->
+        <!-- SEO Guide & Knowledge Base Article (Redesigned with Premium Graphics & Aesthetics) -->
         <section id="transfer-guide" class="guide-sec">
             <div class="guide-container">
-                <article class="guide-article">
-                    <h2>The Ultimate Guide to Wireless Cross-Platform File Transfer</h2>
-                    <p>In today's fast-paced digital world, we constantly shift between multiple operating systems. Whether you are transferring <strong>photos from Android to a Windows PC</strong>, moving massive <strong>video logs from Windows 11 to an iPhone</strong>, or sharing documents across remote networks, you need a solution that is fast, secure, and cable-free. That is where <strong>FlickShare</strong> steps in.</p>
-                    
-                    <h3>What is FlickShare and How Does P2P File Transfer Work?</h3>
-                    <p>FlickShare is a next-generation <strong>P2P (peer-to-peer) serverless file sharing application</strong> designed to establish direct communication pipelines between two devices. Unlike conventional cloud storage platforms (such as Google Drive or Dropbox) which require you to upload files to an external web server first, FlickShare streams files directly between your hardware over local high-speed sockets.</p>
-                    <p>This serverless approach brings three monumental advantages:</p>
-                    <ul>
-                        <li><strong>Blazing-Fast Speed:</strong> By bypassing cloud uploads, transfers can saturate your local Wi-Fi chip capabilities, reaching speeds over <strong>40 MB/s (up to 200x faster than Bluetooth)</strong>.</li>
-                        <li><strong>Complete Offline Capabilities:</strong> Share huge directories, high-definition 4K video files, and lossless audios without utilizing active internet data packs or mobile broadband.</li>
-                        <li><strong>Ironclad Privacy:</strong> Since no third-party server holds your data, your files remain completely private, sandboxed, and secure inside your local environment.</li>
-                    </ul>
+                <div class="guide-header">
+                    <div class="badge">📖 Ultimate Wireless Knowledge Base</div>
+                    <h2>Wireless Cross-Platform File Transfer Guide</h2>
+                    <p>In today's fast-paced digital world, shifting files between different operating systems should be effortless. Whether you are transferring photos from Android to a Windows PC, moving massive video logs from Windows 11 to an iPhone, or sharing documents across networks, FlickShare has you covered.</p>
+                </div>
 
-                    <h3>FlickShare: The Ultimate Ad-Free Alternative to ShareIt & Xender</h3>
-                    <p>For years, users relied on utilities like ShareIt, Xender, or standard Bluetooth for cross-platform sharing. However, these platforms are now heavily bogged down by bloated ad spaces, intrusive tracking, and complex registration walls. FlickShare has been custom-developed to solve these exact headaches:</p>
-                    <ol>
-                        <li><strong>Zero Cloud Databases:</strong> We do not ask for sign-ups, usernames, or phone numbers. Simply open the portal and start sharing immediately.</li>
-                        <li><strong>Strict Families Policy Ad-Filtering:</strong> Our integrated AdMob SDK is strictly G/PG-rated to satisfy Google's Families and COPPA policies. This means zero intrusive adult ads, pop-ups, or malicious redirect chains.</li>
-                        <li><strong>Zero Metadata Trails:</strong> We collect zero personal logs, file names list, or coordinate tracks, keeping your data entirely anonymous.</li>
-                    </ol>
+                <!-- Advantage Cards Grid -->
+                <div class="advantage-grid">
+                    <!-- Advantage 1 -->
+                    <div class="advantage-card">
+                        <div class="adv-icon">⚡</div>
+                        <h3>Blazing-Fast Speed</h3>
+                        <p>By bypassing sluggish cloud storage databases, transfers saturate your local Wi-Fi chip capabilities, reaching speeds over <strong>40 MB/s</strong> (up to 200x faster than Bluetooth!).</p>
+                    </div>
+                    <!-- Advantage 2 -->
+                    <div class="advantage-card">
+                        <div class="adv-icon">📶</div>
+                        <h3>100% Offline Power</h3>
+                        <p>Share huge folders, directories, 4K video files, and high-fidelity audios locally without utilizing any cellular network data packs or active broadband plans.</p>
+                    </div>
+                    <!-- Advantage 3 -->
+                    <div class="advantage-card">
+                        <div class="adv-icon">🛡️</div>
+                        <h3>E2EE Serverless Privacy</h3>
+                        <p>Since no third-party cloud storage server holds your data, your files remain completely private, end-to-end encrypted, and sandboxed inside your local ecosystem.</p>
+                    </div>
+                </div>
 
-                    <h3>Step-by-Step: How to Transfer Files from Windows to Android & Apple iOS</h3>
-                    <p>Sharing files wirelessly with FlickShare is incredibly straightforward. Follow this quick guide to start sending data in seconds:</p>
-                    
-                    <h4>Method A: Sharing Locally (Same Wi-Fi Network)</h4>
-                    <ol>
-                        <li><strong>Download & Install:</strong> Ensure the FlickShare client is installed on your Windows PC and Android device.</li>
-                        <li><strong>Connect:</strong> Connect both devices to the same local home/office Wi-Fi router. (Note: No active internet connection is required).</li>
-                        <li><strong>Scan to Connect:</strong> Open the desktop app, select your files, and scan the pairing QR code using your Android camera or target browser.</li>
-                        <li><strong>Stream Instantly:</strong> Watch your folders stream peer-to-peer at lightning speed!</li>
-                    </ol>
+                <!-- Comparison Grid Block -->
+                <div class="comparison-container">
+                    <div class="guide-header" style="margin-bottom: 40px;">
+                        <h2>FlickShare vs Traditional Tools</h2>
+                        <p>Why modern developers and family circles choose FlickShare over traditional platforms like ShareIt, Xender, or standard Bluetooth.</p>
+                    </div>
+                    <div class="comp-grid">
+                        <!-- Old Legacy Tools -->
+                        <div class="comp-column">
+                            <h3>❌ Traditional Tools (ShareIt, Xender, Bluetooth)</h3>
+                            <ul class="comp-list">
+                                <li class="comp-item">
+                                    <span class="comp-icon-cross">✕</span>
+                                    <span><strong>Intrusive Advertisements:</strong> Heavily bogged down by adult ads, unexpected pop-ups, and malware redirect chains.</span>
+                                </li>
+                                <li class="comp-item">
+                                    <span class="comp-icon-cross">✕</span>
+                                    <span><strong>Mandatory Account Sign-Ups:</strong> Forces you to register phone numbers, usernames, and email accounts.</span>
+                                </li>
+                                <li class="comp-item">
+                                    <span class="comp-icon-cross">✕</span>
+                                    <span><strong>Sluggish Speeds:</strong> Bluetooth is painfully slow for big files, while cloud drives are limited by internet speeds.</span>
+                                </li>
+                                <li class="comp-item">
+                                    <span class="comp-icon-cross">✕</span>
+                                    <span><strong>Heavy Metadata Logging:</strong> Keeps extensive records of files sent, location tracks, and device models.</span>
+                                </li>
+                            </ul>
+                        </div>
 
-                    <h4>Method B: Remote P2P Sharing (Different Networks/Global Remote)</h4>
-                    <ol>
-                        <li><strong>Generate Handshake Code:</strong> If sharing across the internet, select the Remote Transfer option in FlickShare to receive a unique 4-digit session pairing pin.</li>
-                        <li><strong>Pair Remotely:</strong> Share this secure 4-digit handshake code with your recipient anywhere in the world.</li>
-                        <li><strong>Encrypted Streaming:</strong> Once our signaling gateway establishes a direct <strong>WebRTC data channel tunnel</strong>, your files stream directly between peers with end-to-end encryption!</li>
-                    </ol>
+                        <!-- FlickShare Premium -->
+                        <div class="comp-column" style="border-left: 1px solid rgba(255, 255, 255, 0.08); padding-left: 40px;">
+                            <h3>✅ Next-Gen FlickShare Platform</h3>
+                            <ul class="comp-list">
+                                <li class="comp-item">
+                                    <span class="comp-icon-check">✓</span>
+                                    <span><strong>Strict Families Filtering:</strong> AdMob configuration serves child-safe (G/PG-rated) ads only, satisfying strict COPPA standards.</span>
+                                </li>
+                                <li class="comp-item">
+                                    <span class="comp-icon-check">✓</span>
+                                    <span><strong>Zero Registrations Required:</strong> Completely anonymous. No databases, logins, or credit cards required.</span>
+                                </li>
+                                <li class="comp-item">
+                                    <span class="comp-icon-check">✓</span>
+                                    <span><strong>Maximum Chip Saturation:</strong> Streams directly over local Wi-Fi sockets, hitting peak speeds of 40+ MB/s.</span>
+                                </li>
+                                <li class="comp-item">
+                                    <span class="comp-icon-check">✓</span>
+                                    <span><strong>No Files or Metadata Logs:</strong> True P2P serverless design ensures files travel safely from device to device directly.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-                    <p>Whether you're looking for a quick tool to back up phone photos onto a desktop hard drive, or need to send high-capacity data arrays globally, FlickShare is the absolute premium utility to do it. Download today to experience the wireless future!</p>
-                </article>
+                <!-- Step-by-Step Interactive Methods Guide -->
+                <h2 class="methods-title">Step-by-Step Wireless Cross-Platform Transfers</h2>
+                <div class="methods-grid">
+                    <!-- Method A -->
+                    <div class="method-box">
+                        <h3>📶 Method A: Local Direct Share</h3>
+                        <p class="method-subtitle">Use this method when sender and receiver devices are connected to the same local Wi-Fi router network.</p>
+                        <div class="method-steps">
+                            <div class="method-step-card">
+                                <div class="method-step-num">1</div>
+                                <div class="method-step-content">
+                                    <h4>Download Clients</h4>
+                                    <p>Get FlickShare free on your Windows PC and Android devices via our official package downloads.</p>
+                                </div>
+                            </div>
+                            <div class="method-step-card">
+                                <div class="method-step-num">2</div>
+                                <div class="method-step-content">
+                                    <h4>Connect Wi-Fi</h4>
+                                    <p>Connect both devices to the same local office or home Wi-Fi network (no active internet bandwidth required!).</p>
+                                </div>
+                            </div>
+                            <div class="method-step-card">
+                                <div class="method-step-num">3</div>
+                                <div class="method-step-content">
+                                    <h4>Scan QR Pair</h4>
+                                    <p>Select target directories or files on your PC client dashboard and scan the pairing QR code with your phone camera.</p>
+                                </div>
+                            </div>
+                            <div class="method-step-card">
+                                <div class="method-step-num">4</div>
+                                <div class="method-step-content">
+                                    <h4>Enjoy Peak Stream</h4>
+                                    <p>Watch files copy peer-to-peer at speeds over 40 MB/s with absolute safety.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Method B -->
+                    <div class="method-box">
+                        <h3>🌍 Method B: Remote Global P2P</h3>
+                        <p class="method-subtitle">Use this when you need to send folders across separate network bubbles or across the globe.</p>
+                        <div class="method-steps">
+                            <div class="method-step-card">
+                                <div class="method-step-num">1</div>
+                                <div class="method-step-content">
+                                    <h4>Open Remote Panel</h4>
+                                    <p>Navigate to the "Global Remote Sharing" tab inside your FlickShare client dashboard.</p>
+                                </div>
+                            </div>
+                            <div class="method-step-card">
+                                <div class="method-step-num">2</div>
+                                <div class="method-step-content">
+                                    <h4>Generate 4-Digit PIN</h4>
+                                    <p>Generate a unique, temporary 4-digit security connection pin for your pairing session.</p>
+                                </div>
+                            </div>
+                            <div class="method-step-card">
+                                <div class="method-step-num">3</div>
+                                <div class="method-step-content">
+                                    <h4>Share Secure PIN</h4>
+                                    <p>Pass this 4-digit code to your remote recipient. They enter it on their FlickShare app to authenticate pairing.</p>
+                                </div>
+                            </div>
+                            <div class="method-step-card">
+                                <div class="method-step-num">4</div>
+                                <div class="method-step-content">
+                                    <h4>Secure WebRTC Stream</h4>
+                                    <p>Our secure signaling establishes an encrypted direct WebRTC tunnel so files stream safely peer-to-peer.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
